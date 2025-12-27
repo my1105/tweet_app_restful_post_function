@@ -1,0 +1,39 @@
+<div class="main user-show">
+  <div class="container">
+    <div class="user">
+      <img src="<%= user.imageName %>" data-test="user-image">
+      <h2 data-test="user-name"><%= user.name %></h2>
+      <p data-test="user-email"><%= user.email %></p>
+      <% if(currentUser.equal(user)) { %>
+        <a href="<%= `/users/${user.id}/edit` %>">Edit</a>
+      <% } %>
+    </div>
+    <ul class="user-tabs">
+      <li class="<%= activeTab === 'posts' ? 'active' : '' %>">
+        <a href="<%= `/users/${user.id}` %>">Posts</a>
+      </li>
+      <li class="<%= activeTab === 'likes' ? 'active' : '' %>">
+        <a href="<%= `/users/${user.id}/likes` %>">Likes</a>
+      </li>
+    </ul>
+    <div data-test="posts-container">
+      <% posts.forEach(post=> { %>
+        <div class="posts-index-item" data-test="post-<%= post.id %>">
+          <div class="post-left">
+            <img src="<%= post.user.imageName %>">
+          </div>
+          <div class="post-right">
+            <div class="post-user-name">
+              <a href="/users/<%= post.user.id %>" data-test="post-item-user">
+                <%= post.user.name %>
+              </a>
+            </div>
+            <a href="/get_post/<%= post.id %>" data-test="post-item-content">
+              <%= post.content %>
+            </a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</div>

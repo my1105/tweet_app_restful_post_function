@@ -1,0 +1,21 @@
+<div class="main posts-index">
+  <div class="container" data-test="posts-container">
+    <% posts.forEach(post=> { %>
+      <div class="posts-index-item" data-test="post-<%= post.id %>">
+        <div class="post-left">
+          <img src="<%= post.user.imageName %>">
+        </div>
+        <div class="post-right">
+          <div class="post-user-name">
+            <a href="/users/<%= post.user.id %>" data-test="post-item-user">
+              <%= post.user.name %>
+            </a>
+          </div>
+          <a href="/get_post/<%= post.id %>" data-test="post-item-content">
+            <%= post.content %>
+          </a>
+        </div>
+      </div>
+      <% }) %>
+  </div>
+</div>

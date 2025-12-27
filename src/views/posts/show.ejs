@@ -1,0 +1,38 @@
+<div class="main posts-show">
+  <div class="container">
+    <div class="posts-show-item">
+      <div class="post-user-name">
+        <img class="posts-show-item-image" src="<%= user.imageName %>" data-test="user-image">
+        <a href="/users/<%= user.id %>" data-test="user-name"><%= user.name %></a>
+      </div>
+      <p data-test="post-content">
+        <%= post.content %>
+      </p>
+      <div class="post-time" data-test="post-time">
+        <%= postCreatedAt %>
+      </div>
+      <% if(!hasLiked){ %>
+        <form action="/likes/<%= post.id %>" method="POST" data-test="form-like">
+          <button type="submit" data-test="submit-like" class="like-btn like">
+            <span class="material-icons" data-test="favorite-icon">favorite_border</span>
+          </button>
+        </form>
+      <% } else { %>
+      <form action="/likes/<%= post.id %>?_method=DELETE" method="POST" data-test="form-like">
+        <button type="submit" data-test="submit-like" class="like-btn unlike">
+          <span class="material-icons" data-test="favorite-icon">favorite</span>
+        </button>
+      </form>
+      <% } %>
+      <span data-test="like-count"><%= likeCount %></span>
+      <% if(user.equal(currentUser)) { %>
+        <div class="post-menus">
+          <a href="/edit_post/<%= post.id %>" data-test="post-link-edit">Edit</a>
+          <form action="/delete_post/<%= post.id %>" method="POST" data-test="form-like-delete">
+            <input type="submit" value="delete" data-test="submit-post-delete">
+          </form>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</div>
