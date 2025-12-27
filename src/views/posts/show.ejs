@@ -27,8 +27,8 @@
       <span data-test="like-count"><%= likeCount %></span>
       <% if(user.equal(currentUser)) { %>
         <div class="post-menus">
-          <a href="/edit_post/<%= post.id %>" data-test="post-link-edit">Edit</a>
-          <form action="/delete_post/<%= post.id %>" method="POST" data-test="form-like-delete">
+          <a href="/posts/<%= post.id %>/edit" data-test="post-link-edit">Edit</a>
+          <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" data-test="form-post-delete">
             <input type="submit" value="delete" data-test="submit-post-delete">
           </form>
         </div>

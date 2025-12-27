@@ -10,13 +10,13 @@
 <body>
   <header>
     <div class="header-logo">
-      <a href="<%= currentUser ? '/get_posts' : '/' %>" data-test="header-logo">TweetApp</a>
+      <a href="<%= currentUser ? '/posts' : '/' %>" data-test="header-logo">TweetApp</a>
     </div>
     <ul class="header-menus">
       <% if(currentUser) { %>
         <li><a href="/users/<%= currentUser.id %>" data-test="header-link-mypage"><%= currentUser.name %></a></li>
-        <li><a href="/get_posts" data-test="header-link-posts-index">Posts</a></li>
-        <li><a href="/new_post" data-test="header-link-posts-new">New post</a></li>
+        <li><a href="/posts" data-test="header-link-posts-index">Posts</a></li>
+        <li><a href="/posts/new" data-test="header-link-posts-new">New post</a></li>
         <li><a href="/users" data-test="header-link-users-index">Users</a></li>
         <li>
           <form action="/logout?_method=DELETE" method="POST" class="form-logout">

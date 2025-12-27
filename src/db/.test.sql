@@ -21,6 +21,7 @@ INSERT INTO posts (id, content, user_id, created_at, updated_at) VALUES(3,'Maste
 -- DELETE POSTS TEST
 INSERT INTO posts (id, content, user_id, created_at, updated_at) VALUES(4,'My brother Ken is studying so hard! Apparently he wants to become an engineer. Maybe I should also give it a shot.',3,'2021-04-15 07:24:32.004','2021-04-15 07:24:32.004');
 -- LIKE POSTS TEST
+INSERT INTO posts (id, content, user_id, created_at, updated_at) VALUES(16,'test post for like',10,'2021-06-01 02:32:59.458','2021-06-01 02:32:59.458');
 INSERT INTO posts (id, content, user_id, created_at, updated_at) VALUES(5,'Learning to code on Progate. I just completed Rails/Study/3!',4,'2021-03-31 09:24:32.004','2021-03-31 09:24:32.004');
 -- UNLIKE POSTS TEST
 INSERT INTO posts (id, content, user_id, created_at, updated_at) VALUES(6,'I went to a programming workshop at Progate! Learned so much & got a really cute sticker :)',5,'2021-03-31 09:24:32.004','2021-03-31 09:24:32.004');
@@ -58,4 +59,8 @@ INSERT INTO likes (user_id, post_id, created_at) VALUES(4,9,'2021-04-11 14:25:43
 INSERT INTO likes (user_id, post_id, created_at) VALUES(7,12,'2021-04-11 14:25:43.532');
 INSERT INTO likes (user_id, post_id, created_at) VALUES(7,13,'2021-04-11 14:25:43.532');
 INSERT INTO likes (user_id, post_id, created_at) VALUES(9,15,'2021-04-11 14:25:43.532');
+-- 投稿16には3つのいいねがある（ユーザー2, 3, 5）
+INSERT INTO likes (user_id, post_id, created_at) VALUES(2,16,'2021-06-23 02:58:14.214');
+INSERT INTO likes (user_id, post_id, created_at) VALUES(3,16,'2021-06-23 02:59:08.061');
+INSERT INTO likes (user_id, post_id, created_at) VALUES(5,16,'2021-06-23 03:00:12.878');
 COMMIT;

@@ -7,7 +7,8 @@ import {ensureAuthUser} from "@/middlewares/authentication";
 import {ensureOwnerOfPost} from "@/middlewares/current_user";
 export const postRouter = express.Router();
 
-postRouter.get("/get_posts", ensureAuthUser, async (req, res) => {
+// GET /posts - 投稿一覧ページ
+postRouter.get("/posts", ensureAuthUser, async (req, res) => {
   const posts = await Post.all();
   const postsWithUser = await Promise.all(
     posts.map(async post => {
@@ -23,7 +24,8 @@ postRouter.get("/get_posts", ensureAuthUser, async (req, res) => {
   });
 });
 
-postRouter.get("/new_post", ensureAuthUser, (req, res) => {
+// GET /posts/new - 投稿作成ページ
+postRouter.get("/posts/new", ensureAuthUser, (req, res) => {
   res.render("posts/new", {
     post: {
       content: "",
@@ -32,7 +34,8 @@ postRouter.get("/new_post", ensureAuthUser, (req, res) => {
   });
 });
 
-postRouter.get("/get_post/:postId", ensureAuthUser, async (req, res, next) => {
+// GET /posts/:postId - 投稿詳細ページ
+postRouter.get("/posts/:postId", ensureAuthUser, async (req, res, next) => {
   const {postId} = req.params;
   const post = await Post.find(Number(postId));
   if (!post || !post.id)
@@ -55,8 +58,9 @@ postRouter.get("/get_post/:postId", ensureAuthUser, async (req, res, next) => {
   });
 });
 
+// POST /posts - 投稿作成機能
 postRouter.post(
-  "/create_post",
+  "/posts",
   ensureAuthUser,
   body("content", "Content can't be blank").notEmpty(),
   async (req, res, next) => {
@@ -80,12 +84,13 @@ postRouter.post(
     const post = new Post(content, currentUserId);
     await post.save();
     req.dialogMessage?.setMessage("Post successfully created");
-    res.redirect("/get_posts");
+    res.redirect("/posts");
   },
 );
 
+// GET /posts/:postId/edit - 投稿編集ページ
 postRouter.get(
-  "/edit_post/:postId",
+  "/posts/:postId/edit",
   ensureAuthUser,
   ensureOwnerOfPost,
   async (req, res) => {
@@ -95,8 +100,9 @@ postRouter.get(
   },
 );
 
-postRouter.post(
-  "/update_post/:postId",
+// PATCH /posts/:postId - 投稿更新機能
+postRouter.patch(
+  "/posts/:postId",
   ensureAuthUser,
   ensureOwnerOfPost,
   body("content", "Content can't be blank").notEmpty(),
@@ -115,18 +121,19 @@ postRouter.post(
     post.content = content;
     await post.update();
     req.dialogMessage?.setMessage("Post successfully edited");
-    res.redirect("/get_posts");
+    res.redirect("/posts");
   },
 );
 
-postRouter.post(
-  "/delete_post/:postId",
+// DELETE /posts/:postId - 投稿削除機能
+postRouter.delete(
+  "/posts/:postId",
   ensureAuthUser,
   ensureOwnerOfPost,
   async (req, res) => {
     const post = res.locals.post;
     await post.delete();
     req.dialogMessage?.setMessage("Post successfully deleted");
-    res.redirect("/get_posts");
+    res.redirect("/posts");
   },
 );

@@ -51,7 +51,7 @@ authRouter.post(
     if (!user) return next(new Error("Invalid error: The user is undefined."));
     req.authentication?.login(user);
     req.dialogMessage?.setMessage("You have logged in successfully");
-    res.redirect("/get_posts");
+    res.redirect("/posts");
   },
 );
 
